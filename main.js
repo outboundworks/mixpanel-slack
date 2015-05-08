@@ -29,17 +29,19 @@ var configurations = [
         data = decodeURIComponent(data).substr(6).replace(/\+/g,'');
         // Then we parse it
         data = JSON.parse(data);
-        var id = data[0]['$distinct_id'];
-        var name = data[0]['$properties']['$name'];
-        var message = name + " clicked the RunCustomSetup button\n<" +
-            "https://mixpanel.com/report/270423/explore/#user?distinct_id=" + id +
-            "| View in Mixpanel";
-        var payload = {
-          text: message,
-          icon_emoji: ":monkey:",
-          username: "Mixpanel"
-        }
-        return payload;
+        data.forEach(function(event) {
+          var id = data[0]['$distinct_id'];
+          var name = data[0]['$properties']['$name'];
+          var message = name + " clicked the RunCustomSetup button\n<" +
+              "https://mixpanel.com/report/270423/explore/#user?distinct_id=" + id +
+              "| View in Mixpanel>";
+          var payload = {
+            text: message,
+            icon_emoji: ":monkey:",
+            username: "Mixpanel"
+          };
+          ret.push(payload);
+        });
       } catch(error) {
         console.error('Failed to process data');
         console.error(error);
