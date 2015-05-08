@@ -28,10 +28,9 @@ var configurations = [
         data = decodeURIComponent(data).substr(6).replace(/\+/g,'');
         // Then we parse it
         data = JSON.parse(data);
-        
-        console.log('getting data');
-        console.log(data[0]);
-                console.log('getting data done');
+       
+         console.log(data[0]['$distinct_id'])
+                  console.log(data[0]['$properties']['$name'])
       } catch(error) {
         console.error('Failed to process data');
         console.error(error);
@@ -41,8 +40,6 @@ var configurations = [
     }
   }
 ];
-
-
 
 // Handle posted messages
 app.post('/*', function(req, res) {
