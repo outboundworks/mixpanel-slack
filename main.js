@@ -24,7 +24,17 @@ var configurations = [
     postHost: 'https://hooks.slack.com',
     postPath: '/services/T0299RBGC/B04PUL2A9/UVHDNz3KGuWUwa7BZayRjvJs',
     formatter: function(data) {
-      console.log(data);
+      try {
+        // First we need to format the mixpanel data
+        data = data.substr(6).replace(/\+/g,'');
+        // Then we parse it
+        data = JSON.parse(data);
+        
+        console.log(data[0]);
+      } catch(error) {
+        console.error('Failed to process data');
+        console.error(error);
+      }
       return {"text": "This is a line of text in a channel.\nAnd this is another line of text.",
               "icon_emoji": ":monkey:"};
     }
@@ -46,6 +56,7 @@ app.post('/*', function(req, res) {
     console.log('Found formatter');
     if (bodyReformatted) {
        console.log('Reformatting done, will pass the data to the next hook');
+       /*
        request({url: 'https://hooks.slack.com/services/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',
       method: 'POST',
       json: true, 
@@ -59,6 +70,7 @@ app.post('/*', function(req, res) {
                       }
                     });
        startedRequests++;
+       */
     }
   });
   if (startedRequests == 0) {
