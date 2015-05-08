@@ -21,8 +21,7 @@ app.use (function(req, res, next) {
 var configurations = [
   {
     requestUrl: '/mixpanel/RunCustomSetup',
-    postHost: 'https://hooks.slack.com',
-    postPath: '/services/T0299RBGC/B04PUL2A9/UVHDNz3KGuWUwa7BZayRjvJs',
+    postUrl: 'https://hooks.slack.com/services/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',
     formatter: function(data) {
       try {
         // First we need to format the mixpanel data
@@ -30,7 +29,9 @@ var configurations = [
         // Then we parse it
         data = JSON.parse(data);
         
+        console.log('getting data');
         console.log(data[0]);
+                console.log('getting data done');
       } catch(error) {
         console.error('Failed to process data');
         console.error(error);
@@ -42,12 +43,28 @@ var configurations = [
 ];
 
 
+
 // Handle posted messages
 app.post('/*', function(req, res) {
   var url = req.url;
   var body = req.body;
   var startedRequests = 0;
   var completedRequests = 0;
+  
+  var doPost = function(item, data) {
+    request({url: item.postUrl,
+             method: 'POST',
+             json: true, 
+             body: data},
+             function(err,httpResponse,body){
+               completedRequests++;               
+                if (completedRequests == startedRequests) {
+                  res.send('OK');
+                }
+              });
+     startedRequests++;
+  };
+  
   configurations.filter(function(item) {
     return item.requestUrl == url;
   })
@@ -56,21 +73,6 @@ app.post('/*', function(req, res) {
     console.log('Found formatter');
     if (bodyReformatted) {
        console.log('Reformatting done, will pass the data to the next hook');
-       /*
-       request({url: 'https://hooks.slack.com/services/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',
-      method: 'POST',
-      json: true, 
-      
-                body: bodyReformatted},
-                    function(err,httpResponse,body){
-                      completedRequests++;
-               
-                      if (completedRequests == startedRequests) {
-                        res.send('OK');
-                      }
-                    });
-       startedRequests++;
-       */
     }
   });
   if (startedRequests == 0) {
