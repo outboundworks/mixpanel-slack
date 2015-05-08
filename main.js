@@ -21,12 +21,12 @@ app.use (function(req, res, next) {
 var configurations = [
   {
     requestUrl: '/mixpanel/RunCustomSetup',
-    postUrl: 'https://hooks.slack.com/services/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',
+    postUrl: 'https://hooks.slack.com/services/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',
     formatter: function(data) {
       var ret = [];
       try {
         // First we need to format the mixpanel data
-        data = decodeURIComponent(data).substr(6).replace(/\+/g,'');
+        data = decodeURIComponent(data).substr(6).replace(/\+/g,' ');
         // Then we parse it
         data = JSON.parse(data);
         data.forEach(function(event) {
