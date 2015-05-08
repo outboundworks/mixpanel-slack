@@ -30,8 +30,8 @@ var configurations = [
         // Then we parse it
         data = JSON.parse(data);
         data.forEach(function(event) {
-          var id = data[0]['$distinct_id'];
-          var name = data[0]['$properties']['$name'];
+          var id = event['$distinct_id'];
+          var name = event['$properties']['$name'];
           var message = name + " clicked the RunCustomSetup button\n<" +
               "https://mixpanel.com/report/270423/explore/#user?distinct_id=" + id +
               "| View in Mixpanel>";
@@ -59,8 +59,6 @@ app.post('/*', function(req, res) {
   var completedRequests = 0;
   
   var doPost = function(item, data) {
-    console.log(data);
-    return;
     request({url: item.postUrl,
              method: 'POST',
              json: true, 
