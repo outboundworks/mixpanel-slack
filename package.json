@@ -1,0 +1,23 @@
+{
+  "name": "hookerReformatted",
+  "version": "0.0.0",
+  "description": "Format webook data and pass it to an other service",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webhook"
+  ],
+  "author": "Andreas",
+  "license": "Free",
+  "dependencies": {
+    "express": "~4.9.x",
+    "logfmt": "~0.20.0",
+    "q": "~1.2.0",
+    "request": "~2.55.0"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
+}
