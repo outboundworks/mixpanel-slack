@@ -26,7 +26,7 @@ var configurations = [
     formatter: function(data) {
       try {
         // First we need to format the mixpanel data
-        data = data.substr(6).replace(/\+/g,'');
+        data = decodeURIComponent(data).substr(6).replace(/\+/g,'');
         // Then we parse it
         data = JSON.parse(data);
         
