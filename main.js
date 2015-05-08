@@ -23,20 +23,28 @@ var configurations = [
     requestUrl: '/mixpanel/RunCustomSetup',
     postUrl: 'https://hooks.slack.com/services/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',
     formatter: function(data) {
+      var ret = [];
       try {
         // First we need to format the mixpanel data
         data = decodeURIComponent(data).substr(6).replace(/\+/g,'');
         // Then we parse it
         data = JSON.parse(data);
-       
-         console.log(data[0]['$distinct_id'])
-                  console.log(data[0]['$properties']['$name'])
+        var id = data[0]['$distinct_id'];
+        var name = data[0]['$properties']['$name'];
+        var message = name + " clicked the RunCustomSetup button\n<" +
+            "https://mixpanel.com/report/270423/explore/#user?distinct_id=" + id +
+            "| View in Mixpanel";
+        var payload = {
+          text: message,
+          icon_emoji: ":monkey:",
+          username: "Mixpanel"
+        }
+        return payload;
       } catch(error) {
         console.error('Failed to process data');
         console.error(error);
       }
-      return {"text": "This is a line of text in a channel.\nAnd this is another line of text.",
-              "icon_emoji": ":monkey:"};
+      return ret;
     }
   }
 ];
@@ -49,6 +57,8 @@ app.post('/*', function(req, res) {
   var completedRequests = 0;
   
   var doPost = function(item, data) {
+    console.log(data);
+    return;
     request({url: item.postUrl,
              method: 'POST',
              json: true, 
@@ -70,6 +80,14 @@ app.post('/*', function(req, res) {
     console.log('Found formatter');
     if (bodyReformatted) {
        console.log('Reformatting done, will pass the data to the next hook');
+       
+       if (bodyReformatted instanceof Array) {
+         bodyReformatted.forEach(function(postData){
+           doPost(item, postData);
+         });
+       } else {
+          doPost(item, bodyReformatted);
+       }
     }
   });
   if (startedRequests == 0) {
