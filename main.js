@@ -32,7 +32,7 @@ var configurations = [
         data.forEach(function(event) {
           var id = event['$distinct_id'];
           var name = event['$properties']['$name'];
-          var message = name + " clicked the RunCustomSetup button\n<" +
+          var message = "@gabriel\n" + name + " clicked the RunCustomSetup button\n<" +
               "https://mixpanel.com/report/270423/explore/#user?distinct_id=" + id +
               "| View in Mixpanel>";
           var payload = {
