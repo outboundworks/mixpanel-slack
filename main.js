@@ -68,8 +68,8 @@ var configurations = [
           var payload = {              
             attachments: [
               {
-                fallback: name + "@" + org + " just signed up",
-                text: name + "@" + org + " just signed up" +
+                fallback: name + " @ " + org + " just signed up",
+                text: name + " @ " + org + " just signed up" +
                   "\n<https://mixpanel.com/report/270423/explore/#user?distinct_id=" + id +
                   "| View in Mixpanel>",
                 fields: [
