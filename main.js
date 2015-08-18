@@ -51,7 +51,7 @@ var configurations = [
   },
   {
     requestUrl: '/mixpanel/signup',
-    postUrl: 'https://hooks.slack.com/services/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',
+    postUrl: 'https://hooks.slack.com/services/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',
     formatter: function(data) {
       var ret = [];
       try {
@@ -62,12 +62,17 @@ var configurations = [
         data.forEach(function(event) {
           var id = event['$distinct_id'];
           var name = event['$properties']['$name'];
-          var message = name + " Just signed up\n<" +
-              "https://mixpanel.com/report/270423/explore/#user?distinct_id=" + id +
+          var org = event['$properties']['org'];
+          var phone = event['$properties']['phone'];
+          var timezon = event['$properties']['$timezone'];
+          var message = name + "@" + org + " just signed up" +
+              "\nCall: " + phone +
+              "\nTimezone: " + timezone +
+              "\n<https://mixpanel.com/report/270423/explore/#user?distinct_id=" + id +
               "| View in Mixpanel>";
           var payload = {
             text: message,
-            icon_emoji: ":monkey:",
+            icon_emoji: ":moneybag:",
             username: "Mixpanel"
           };
           ret.push(payload);
