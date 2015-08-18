@@ -65,13 +65,27 @@ var configurations = [
           var org = event['$properties']['org'];
           var phone = event['$properties']['phone'];
           var timezone = event['$properties']['$timezone'];
-          var message = name + "@" + org + " just signed up" +
-              "\nCall: " + phone +
-              "\nTimezone: " + timezone +
-              "\n<https://mixpanel.com/report/270423/explore/#user?distinct_id=" + id +
-              "| View in Mixpanel>";
-          var payload = {
-            text: message,
+          var payload = {              
+            attachments: [
+              {
+                fallback: name + "@" + org + " just signed up",
+                text: name + "@" + org + " just signed up" +
+                  "\n<https://mixpanel.com/report/270423/explore/#user?distinct_id=" + id +
+                  "| View in Mixpanel>",
+                fields: [
+                  {
+                    title: 'Phone',
+                    value: phone,
+                    short: true
+                  },{
+                    title: 'Timezone',
+                    value: timezone,
+                    short: true
+                  }
+                ],
+                color: "#7CD197"
+              }
+            ],
             icon_emoji: ":moneybag:",
             username: "Mixpanel"
           };
