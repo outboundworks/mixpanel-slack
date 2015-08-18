@@ -51,7 +51,8 @@ var configurations = [
   },
   {
     requestUrl: '/mixpanel/signup',
-    postUrl: 'https://hooks.slack.com/services/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',
+//    postUrl: 'https://hooks.slack.com/services/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',
+    postUrl: 'https://hooks.slack.com/services/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',
     formatter: function(data) {
       var ret = [];
       try {
