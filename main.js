@@ -64,7 +64,7 @@ var configurations = [
           var name = event['$properties']['$name'];
           var org = event['$properties']['org'];
           var phone = event['$properties']['phone'];
-          var timezon = event['$properties']['$timezone'];
+          var timezone = event['$properties']['$timezone'];
           var message = name + "@" + org + " just signed up" +
               "\nCall: " + phone +
               "\nTimezone: " + timezone +
