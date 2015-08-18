@@ -48,6 +48,36 @@ var configurations = [
       }
       return ret;
     }
+  },
+  {
+    requestUrl: '/mixpanel/signup',
+    postUrl: 'https://hooks.slack.com/services/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',
+    formatter: function(data) {
+      var ret = [];
+      try {
+        // First we need to format the mixpanel data
+        data = decodeURIComponent(data).substr(6).replace(/\+/g,' ');
+        // Then we parse it
+        data = JSON.parse(data);
+        data.forEach(function(event) {
+          var id = event['$distinct_id'];
+          var name = event['$properties']['$name'];
+          var message = name + " Just signed up\n<" +
+              "https://mixpanel.com/report/270423/explore/#user?distinct_id=" + id +
+              "| View in Mixpanel>";
+          var payload = {
+            text: message,
+            icon_emoji: ":monkey:",
+            username: "Mixpanel"
+          };
+          ret.push(payload);
+        });
+      } catch(error) {
+        console.error('Failed to process data');
+        console.error(error);
+      }
+      return ret;
+    }
   }
 ];
 
