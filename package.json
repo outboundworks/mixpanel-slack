@@ -14,6 +14,7 @@
   "dependencies": {
     "express": "~4.9.x",
     "logfmt": "~0.20.0",
+    "node-slack": "0.0.7",
     "q": "~1.2.0",
     "request": "~2.55.0"
   },
