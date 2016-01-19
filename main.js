@@ -164,6 +164,8 @@ app.post('/*', function(req, res) {
        
        if (bodyReformatted instanceof Array) {
          bodyReformatted.forEach(function(postData){
+           console.log('do post', item);
+           console.log(postData);
            doPost(item, postData);
          });
        } else {
