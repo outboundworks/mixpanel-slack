@@ -153,7 +153,7 @@ app.post('/*', function(req, res) {
   
   configurations.filter(function(item) {
     console.log(item.requestUrl);
-    console.log(url.substr(0, item.requestUrl.length);
+    console.log(url.substr(0, item.requestUrl.length));
     return item.requestUrl === url.substr(0, item.requestUrl.length);
   })
   .forEach(function(item) {
