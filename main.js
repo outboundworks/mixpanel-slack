@@ -152,7 +152,7 @@ app.post('/*', function(req, res) {
   };
   
   configurations.filter(function(item) {
-    return item.requestUrl.startsWith(url);
+    return item.requestUrl === url.substr(0, item.requestUrl.length);
   })
   .forEach(function(item) {
     var bodyReformatted = item.formatter(body, url);
