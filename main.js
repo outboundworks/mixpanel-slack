@@ -152,8 +152,6 @@ app.post('/*', function(req, res) {
   };
   
   configurations.filter(function(item) {
-    console.log(item.requestUrl);
-    console.log(url.substr(0, item.requestUrl.length));
     return item.requestUrl === url.substr(0, item.requestUrl.length);
   })
   .forEach(function(item) {
@@ -164,8 +162,6 @@ app.post('/*', function(req, res) {
        
        if (bodyReformatted instanceof Array) {
          bodyReformatted.forEach(function(postData){
-           console.log('do post', item);
-           console.log(postData);
            doPost(item, postData);
          });
        } else {
